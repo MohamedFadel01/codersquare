@@ -1,7 +1,7 @@
 import sequelize from "./dbConnection";
 import { DataTypes, Model, STRING } from "sequelize";
 
-class User extends Model {}
+export default class User extends Model {}
 User.init(
   {
     id: {
@@ -36,5 +36,3 @@ User.init(
     timestamps: false,
   }
 );
-
-export default User;
