@@ -78,8 +78,8 @@ A relational database (schema follows) to fast retrieval of posts and comments. 
 **Comments**:
 | Column | Type |
 |---------|------|
-| ID | STRING |
+| ID | STRING/UUID |
 | UserId | STRING/UUID |
 | PostId | STRING |
-| Comment | STRING|
+| Body | STRING|
 | PostedAt | Timestamp |

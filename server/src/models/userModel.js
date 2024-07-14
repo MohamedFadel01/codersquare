@@ -1,5 +1,5 @@
 import sequelize from "./dbConnection";
-import { DataTypes, Model, STRING } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 
 export default class User extends Model {}
 User.init(
