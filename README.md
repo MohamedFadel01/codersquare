@@ -65,7 +65,7 @@ A relational database (schema follows) to fast retrieval of posts and comments. 
 |--------|------|
 | ID | STRING/UUID |
 | Title | STRING |
-| URL | STRING |
+| Body | STRING |
 | UserId | STRING/UUID |
 | PostedAt | Timestamp |
 
@@ -81,9 +81,5 @@ A relational database (schema follows) to fast retrieval of posts and comments. 
 | ID | STRING |
 | UserId | STRING/UUID |
 | PostId | STRING |
-| Comment | STRING |
-<<<<<<< HEAD
+| Comment | STRING|
 | PostedAt | Timestamp |
-=======
-| PostedAt | Timestamp |
->>>>>>> restore-organization

@@ -18,6 +18,7 @@ Post.init(
     },
   },
   {
+    modelName: "Post",
     sequelize,
     timestamps: true,
     createdAt: "postedAt",
