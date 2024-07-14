@@ -1,4 +1,4 @@
-import sequelize from "./dbConnection";
+import {sequelize} from "./dbConnection.js";
 import { DataTypes, Model } from "sequelize";
 
 export default class Comment extends Model {}
@@ -8,14 +8,14 @@ Comment.init(
       type: DataTypes.UUID,
       primaryKey: true,
     },
-    userId: {
-      type: DataTypes.UUID,
-      allowNull: false,
-    },
-    postId: {
-      type: DataTypes.UUID,
-      allowNull: false,
-    },
+    // userId: {
+    //   type: DataTypes.UUID,
+    //   allowNull: false,
+    // },
+    // postId: {
+    //   type: DataTypes.UUID,
+    //   allowNull: false,
+    // },
     body: {
       type: DataTypes.STRING,
       allowNull: false,

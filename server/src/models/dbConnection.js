@@ -1,5 +1,7 @@
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
+import log from 'fancy-log';
+import { text } from "express";
 
 dotenv.config();
 
@@ -12,8 +14,17 @@ export const sequelize = new Sequelize(dbURI, {
 export const connectDb = async () => {
   try {
     await sequelize.authenticate();
-    console.log("Connection has been established successfully");
+    log("Connection has been established successfully");
   } catch (error) {
-    console.error("Unable to connect to the database: ", error);
+    log.error("Unable to connect to the database: ", error);
+  }
+};
+
+export const syncDb = async () => {
+  try {
+    await sequelize.sync({force: true});
+    log("All models were synchronized successfully");
+  } catch (error) {
+    log.error("Unable to synchronize models: ", error);
   }
 };
