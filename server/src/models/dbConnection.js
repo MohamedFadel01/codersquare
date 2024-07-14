@@ -1,7 +1,6 @@
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
-import log from 'fancy-log';
-import { text } from "express";
+import log from "fancy-log";
 
 dotenv.config();
 
@@ -22,7 +21,7 @@ export const connectDb = async () => {
 
 export const syncDb = async () => {
   try {
-    await sequelize.sync({force: true});
+    await sequelize.sync({ force: true });
     log("All models were synchronized successfully");
   } catch (error) {
     log.error("Unable to synchronize models: ", error);

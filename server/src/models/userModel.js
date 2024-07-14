@@ -1,4 +1,4 @@
-import {sequelize} from './dbConnection.js';
+import { sequelize } from "./dbConnection.js";
 import { DataTypes, Model } from "sequelize";
 
 export default class User extends Model {}

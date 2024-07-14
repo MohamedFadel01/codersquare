@@ -13,7 +13,7 @@ const initAssociations = () => {
     Post.belongsTo(User);
     log("Relationship between User and Post has been established");
   } catch (error) {
-    log.error("Error initializing association between User and Post");
+    log.error("Error initializing association between User and Post: ", error);
   }
 
   try {
@@ -24,7 +24,10 @@ const initAssociations = () => {
     Comment.belongsTo(User);
     log("Relationship between User and Comment has been established");
   } catch (error) {
-    log.error("Error initializing association between User and Comment");
+    log.error(
+      "Error initializing association between User and Comment: ",
+      error
+    );
   }
 
   try {
@@ -35,7 +38,10 @@ const initAssociations = () => {
     Comment.belongsTo(Post);
     log("Relationship between Post and Comment has been established");
   } catch (error) {
-    log.error("Error initializing association between Post and Comment");
+    log.error(
+      "Error initializing association between Post and Comment: ",
+      error
+    );
   }
 
   try {
@@ -46,7 +52,7 @@ const initAssociations = () => {
     Like.belongsTo(User);
     log("Relationship between User and Like has been established");
   } catch (error) {
-    log.error("Error initializing association between User and Like");
+    log.error("Error initializing association between User and Like: ", error);
   }
 
   try {
@@ -57,7 +63,7 @@ const initAssociations = () => {
     Like.belongsTo(Post);
     log("Relationship between  Post and Like has been established");
   } catch (error) {
-    log.error("Error initializing association between Post and Like");
+    log.error("Error initializing association between Post and Like: ", error);
   }
 };
 
