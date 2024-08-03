@@ -39,7 +39,10 @@ export const signup = async (req, res) => {
   } catch (error) {
     log.error(error);
     if (error instanceof UniqueConstraintError) {
-      const [alreadyExistingField] = error.fields;
+      const { errors } = error;
+      log(errors);
+      const alreadyExistingField = errors[0].path;
+      log(alreadyExistingField);
       errorMsgSender(res, 409, `${alreadyExistingField} already exists`);
     } else {
       errorMsgSender(res, 500, "Internal Server Error");
