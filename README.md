@@ -17,9 +17,9 @@ A JWT-based auth mechanism is to be used, with passwords encrypted and stored in
 **Auth**:
 
 ```
-/signIn  [POST]
-/signUp  [POST]
-/signOut [POST]
+/users/signIn  [POST]
+/users/signUp  [POST]
+/users/signOut [POST]
 ```
 
 **Posts**:

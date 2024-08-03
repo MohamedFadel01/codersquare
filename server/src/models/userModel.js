@@ -30,6 +30,10 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    loggedIn: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
   {
     modelName: "User",
