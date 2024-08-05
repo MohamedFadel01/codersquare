@@ -5,7 +5,8 @@ import jwt from "jsonwebtoken";
 import validator from "validator";
 import User from "../models/userModel.js";
 import errorMsgSender from "../utils/errorMsgSender.js";
-import { UniqueConstraintError } from "sequelize";
+import { UniqueConstraintError, Op } from "sequelize";
+import genJwt from "../utils/genJwt.js";
 
 export const signup = async (req, res) => {
   const id = crypto.randomUUID();
@@ -50,8 +51,42 @@ export const signup = async (req, res) => {
   }
 };
 
-const login = (req, res) => {
-  
+export const login = async (req, res) => {
+  const { usernameOrEmail, password } = req.body;
+  if (!usernameOrEmail || !password) {
+    return errorMsgSender(res, 400, "required fields are missing");
+  }
+
+  try {
+    const user = await User.findOne({
+      where: {
+        [Op.or]: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
+      },
+    });
+
+    if (!user) {
+      return errorMsgSender(res, 404, "invalid email/username or password");
+    }
+
+    if (!(await bcrypt.compare(password, user.password))) {
+      return errorMsgSender(res, 401, "invalid email/username or password");
+    }
+
+    user.loggedIn = true;
+    await user.save();
+
+    res.status(200).json({
+      token: genJwt(user.id),
+      user: {
+        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
+    });
+  } catch (error) {
+    log.error(error);
+    res.sendStatus(500);
+  }
 };
 
 // const logout = (req, res) => {};
