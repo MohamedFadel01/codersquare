@@ -20,6 +20,8 @@ A JWT-based auth mechanism is to be used, with passwords encrypted and stored in
 /users/signIn  [POST]
 /users/signUp  [POST]
 /users/signOut [POST]
+/users/ [PUT]
+/users/ [DELETE]
 ```
 
 **Posts**:
