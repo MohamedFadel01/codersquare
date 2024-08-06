@@ -6,6 +6,7 @@ import User from "../models/userModel.js";
 import errorMsgSender from "../utils/errorMsgSender.js";
 import { UniqueConstraintError, Op } from "sequelize";
 import genJwt from "../utils/genJwt.js";
+import exp from "constants";
 
 export const signup = async (req, res) => {
   const id = crypto.randomUUID();
@@ -134,6 +135,19 @@ export const updateUser = async (req, res) => {
       const alreadyExistingField = errors[0].path;
       return errorMsgSender(res, 409, `${alreadyExistingField} already exists`);
     }
+    res.sendStatus(500);
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  try {
+    await User.destroy({
+      where: {
+        id: res.locals.userId,
+      },
+    });
+    res.sendStatus(204);
+  } catch (error) {
     res.sendStatus(500);
   }
 };
