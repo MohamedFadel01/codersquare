@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import log from "fancy-log";
-import jwt from "jsonwebtoken";
 import validator from "validator";
 import User from "../models/userModel.js";
 import errorMsgSender from "../utils/errorMsgSender.js";
@@ -41,9 +40,7 @@ export const signup = async (req, res) => {
     log.error(error);
     if (error instanceof UniqueConstraintError) {
       const { errors } = error;
-      log(errors);
       const alreadyExistingField = errors[0].path;
-      log(alreadyExistingField);
       errorMsgSender(res, 409, `${alreadyExistingField} already exists`);
     } else {
       errorMsgSender(res, 500, "Internal Server Error");
@@ -89,4 +86,19 @@ export const login = async (req, res) => {
   }
 };
 
-// const logout = (req, res) => {};
+export const logout = async (req, res) => {
+  try {
+    await User.update(
+      { loggedIn: false },
+      {
+        where: {
+          id: res.locals.userId,
+        },
+      }
+    );
+    res.sendStatus(204);
+  } catch (error) {
+    log.error(error);
+    res.sendStatus(500);
+  }
+};
