@@ -102,3 +102,38 @@ export const logout = async (req, res) => {
     res.sendStatus(500);
   }
 };
+
+export const updateUser = async (req, res) => {
+  const { body } = req;
+  if ("email" in body) {
+    if (!validator.isEmail(body.email)) {
+      return errorMsgSender(res, 400, "invalid email");
+    }
+  }
+
+  if ("password" in body) {
+    if (!validator.isStrongPassword(body.password)) {
+      return errorMsgSender(res, 400, "weak password");
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(body.password, salt);
+
+    body.password = hash;
+  }
+  try {
+    await User.update(body, {
+      where: {
+        id: res.locals.userId,
+      },
+    });
+    res.sendStatus(204);
+  } catch (error) {
+    if (error instanceof UniqueConstraintError) {
+      const { errors } = error;
+      const alreadyExistingField = errors[0].path;
+      return errorMsgSender(res, 409, `${alreadyExistingField} already exists`);
+    }
+    res.sendStatus(500);
+  }
+};
