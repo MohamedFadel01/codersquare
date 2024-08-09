@@ -8,8 +8,8 @@ dotenv.config();
 
 (async () => {
   await connectDb();
-  await syncDb();
   initAssociations();
+  await syncDb();
   app.listen(process.env.PORT, () =>
     log(`Server started on port ${process.env.PORT}`)
   );
