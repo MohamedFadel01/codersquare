@@ -8,9 +8,14 @@ const initAssociations = () => {
   try {
     //One-to-Many relationship between User and Post
     User.hasMany(Post, {
+      foreignKey: "userId",
       onDelete: "CASCADE",
     });
-    Post.belongsTo(User);
+    Post.belongsTo(User, {
+      as: "postAuthor",
+      foreignKey: "userId",
+      onDelete: "CASCADE",
+    });
     log("Relationship between User and Post has been established");
   } catch (error) {
     log.error("Error initializing association between User and Post: ", error);

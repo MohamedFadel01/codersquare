@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 
 dotenv.config({ path: "../.env" });
 
-const userAuthentication = async (req, res, next) => {
+const userAuthenticate = async (req, res, next) => {
   const { authorization } = req.headers;
   if (!authorization) return errorMsgSender(res, 401, "user not authorized");
 
@@ -32,4 +32,4 @@ const userAuthentication = async (req, res, next) => {
   }
 };
 
-export default userAuthentication;
+export default userAuthenticate;
