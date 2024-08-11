@@ -4,7 +4,14 @@ import { DataTypes, Model } from "sequelize";
 export default class Like extends Model {}
 Like.init(
   {
-    //all of the model attributes are foreign keys
+    userId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
+    postId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
   },
   {
     modelName: "Like",
