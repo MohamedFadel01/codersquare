@@ -22,7 +22,7 @@ Post.init(
     sequelize,
     timestamps: true,
     createdAt: "postedAt",
-    updatedAt: false,
+    updatedAt: true,
     deletedAt: false,
   }
 );
