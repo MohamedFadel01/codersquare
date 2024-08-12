@@ -4,6 +4,7 @@ import log from "fancy-log";
 import crypto from "crypto";
 import errorMsgSender from "../utils/errorMsgSender.js";
 import { ValidationError } from "sequelize";
+import validator from "validator";
 
 export const createPost = async (req, res) => {
   const id = crypto.randomUUID();
@@ -33,7 +34,32 @@ export const createPost = async (req, res) => {
   }
 };
 
-export const getPost = async (req, res) => {};
+export const getPost = async (req, res) => {
+  const { id } = req.params;
+
+  if (!validator.isUUID(id)) {
+    return errorMsgSender(res, 400, "invalid post id");
+  }
+
+  try {
+    const post = await Post.findByPk(id, {
+      attributes: { exclude: ["id", "userId"] },
+      include: {
+        model: User,
+        as: "postAuthor",
+        attributes: ["firstName", "lastName", "username"],
+      },
+    });
+    if (!post) {
+      return errorMsgSender(res, 404, "post not found");
+    }
+
+    res.status(200).json(post);
+  } catch (error) {
+    log.error(error);
+    res.sendStatus(500);
+  }
+};
 
 export const getAllPosts = async (req, res) => {};
 
