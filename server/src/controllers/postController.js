@@ -61,8 +61,28 @@ export const getPost = async (req, res) => {
   }
 };
 
-export const getAllPosts = async (req, res) => {};
-
-export const deletePost = async (req, res) => {};
+export const getAllPosts = async (req, res) => {
+  try {
+    const posts = await Post.findAll({
+      attributes: {
+        exclude: ["userId"],
+      },
+      include: {
+        model: User,
+        as: "postAuthor",
+        attributes: ["firstName", "lastName", "username"],
+      },
+    });
+    if (!posts || posts.length === 0) {
+      return errorMsgSender(res, 404, "no posts found");
+    }
+    res.status(200).json(posts);
+  } catch (error) {
+    log.error(error);
+    res.sendStatus(500);
+  }
+};
 
 export const updatePost = async (req, res) => {};
+
+export const deletePost = async (req, res) => {};
