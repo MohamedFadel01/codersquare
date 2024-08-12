@@ -20,7 +20,7 @@ export const createPost = async (req, res) => {
       title,
       body,
     });
-    res.sendStatus(201);
+    res.status(200).json({ id });
   } catch (error) {
     log.error(error);
     if (error instanceof ValidationError) {
