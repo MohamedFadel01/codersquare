@@ -12,11 +12,11 @@ import userAuthenticate from "../middlewares/userAuthMiddleware.js";
 const postRouter = express.Router();
 
 postRouter.use(userAuthenticate);
-
 postRouter.get("/", getAllPosts);
 postRouter.get("/:id", getPost);
 postRouter.post("/", createPost);
-postRouter.put("/:id", postAuth, updatePost);
-postRouter.delete("/:id", postAuth, deletePost);
+postRouter.use(postAuth);
+postRouter.put("/:id", updatePost);
+postRouter.delete("/:id", deletePost);
 
 export default postRouter;
