@@ -15,7 +15,7 @@ postRouter.use(userAuthenticate);
 postRouter.get("/", getAllPosts);
 postRouter.get("/:id", getPost);
 postRouter.post("/", createPost);
-postRouter.use(postAuth);
+postRouter.use("/:id", postAuth);
 postRouter.put("/:id", updatePost);
 postRouter.delete("/:id", deletePost);
 

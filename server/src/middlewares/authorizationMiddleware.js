@@ -7,15 +7,17 @@ import validator from "validator";
 
 export const postAuth = async (req, res, next) => {
   const { id } = req.params;
-  const { userId } = res.locals;
+
   if (!validator.isUUID(id)) {
-    return errorMsgSender(res, 400, "invalid post id");
+    return errorMsgSender(res, 400, "Invalid post ID");
   }
+
+  const { userId } = res.locals;
 
   try {
     const post = await Post.findOne({ where: { id, userId } });
     if (!post) {
-      return errorMsgSender(res, 401, "user not authorized");
+      return errorMsgSender(res, 401, "User not authorized");
     }
   } catch (error) {
     log.error(error);

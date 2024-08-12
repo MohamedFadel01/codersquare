@@ -3,7 +3,7 @@ import User from "../models/userModel.js";
 import log from "fancy-log";
 import crypto from "crypto";
 import errorMsgSender from "../utils/errorMsgSender.js";
-import { ValidationError } from "sequelize";
+import { ValidationError, where } from "sequelize";
 import validator from "validator";
 
 export const createPost = async (req, res) => {
@@ -83,6 +83,24 @@ export const getAllPosts = async (req, res) => {
   }
 };
 
-export const updatePost = async (req, res) => {};
+export const updatePost = async (req, res) => {
+  const { id } = req.params;
+  const { body } = req;
+  if (Object.keys(body).length === 0) {
+    return errorMsgSender(res, 400, "required fields are missing");
+  }
+
+  try {
+    await Post.update(body, {
+      where: {
+        id: id,
+      },
+    });
+    res.sendStatus(204);
+  } catch (error) {
+    log.error(error);
+    res.sendStatus(500);
+  }
+};
 
 export const deletePost = async (req, res) => {};
