@@ -85,6 +85,10 @@ export const getAllPosts = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   const { id } = req.params;
+  if (!validator.isUUID(id)) {
+    return errorMsgSender(res, 400, "invalid post id");
+  }
+
   const { body } = req;
   if (Object.keys(body).length === 0) {
     return errorMsgSender(res, 400, "required fields are missing");
@@ -103,4 +107,19 @@ export const updatePost = async (req, res) => {
   }
 };
 
-export const deletePost = async (req, res) => {};
+export const deletePost = async (req, res) => {
+  const { id } = req.params;
+  if (!validator.isUUID(id)) {
+    return errorMsgSender(res, 400, "invalid post id");
+  }
+
+  try {
+    const post = await Post.destroy({
+      where: { id },
+    });
+    res.sendStatus(204);
+  } catch (error) {
+    log.error(error);
+    res.sendStatus(500);
+  }
+};
