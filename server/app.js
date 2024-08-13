@@ -4,6 +4,7 @@ import userRouter from "./src/routers/usersRoute.js";
 import postRouter from "./src/routers/postsRoute.js";
 import commentRouter from "./src/routers/commentsRoute.js";
 import userAuthenticate from "./src/middlewares/userAuthMiddleware.js";
+import likeRouter from "./src/routers/likesRoute.js";
 
 const app = express();
 
@@ -14,5 +15,6 @@ app.use("/api/users", userRouter);
 app.use(userAuthenticate);
 app.use("/api/posts", postRouter);
 app.use("/api/comments", commentRouter);
+app.use("/api/likes", likeRouter);
 
 export default app;

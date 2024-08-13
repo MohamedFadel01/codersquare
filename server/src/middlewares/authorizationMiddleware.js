@@ -47,3 +47,5 @@ export const commentAuth = async (req, res, next) => {
 
   next();
 };
+
+export const likeAuth = async (req, res, next) => {};
