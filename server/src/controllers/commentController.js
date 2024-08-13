@@ -57,4 +57,19 @@ export const getPostComments = async (req, res) => {
   }
 };
 
-export const deleteComment = async (req, res) => {};
+export const deleteComment = async (req, res) => {
+  const { id } = req.params;
+  if (!validator.isUUID(id)) {
+    return errorMsgSender(res, 400, "invalid comment id");
+  }
+
+  try {
+    await Comment.destroy({
+      where: { id },
+    });
+    res.sendStatus(204);
+  } catch (error) {
+    log.error(error);
+    res.sendStatus(500);
+  }
+};

@@ -27,7 +27,7 @@ export const postAuth = async (req, res, next) => {
   next();
 };
 
-export const commentAuth = async (req, res) => {
+export const commentAuth = async (req, res, next) => {
   const { id } = req.params;
   if (!validator.isUUID(id)) {
     return errorMsgSender(res, 400, "invalid comment id");
