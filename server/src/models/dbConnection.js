@@ -8,6 +8,9 @@ const dbURI = process.env.DATABASE_URI;
 
 export const sequelize = new Sequelize(dbURI, {
   dialect: "postgres",
+  define: {
+    noPrimaryKey: true,
+  },
 });
 
 export const connectDb = async () => {
