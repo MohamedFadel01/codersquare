@@ -48,4 +48,21 @@ export const commentAuth = async (req, res, next) => {
   next();
 };
 
-export const likeAuth = async (req, res, next) => {};
+export const likeAuth = async (req, res, next) => {
+  const { postId } = req.params;
+  const { userId } = res.locals;
+  if (!validator.isUUID(postId)) {
+    return errorMsgSender(res, 400, "invalid like id");
+  }
+  try {
+    const like = await Like.findOne({ where: { userId, post } });
+    if (!like) {
+      return errorMsgSender(res, 404, "like not found");
+    }
+  } catch (error) {
+    log.error(error);
+    res.sendStatus(500);
+  }
+
+  next();
+};
