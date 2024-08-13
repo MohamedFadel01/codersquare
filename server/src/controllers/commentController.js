@@ -34,6 +34,27 @@ export const createComment = async (req, res) => {
   }
 };
 
-export const getPostComments = async (req, res) => {};
+export const getPostComments = async (req, res) => {
+  const { postId } = req.params;
+  if (!validator.isUUID(postId)) {
+    return errorMsgSender(res, 400, "invalid post id");
+  }
+
+  try {
+    const comments = await Comment.findAll({
+      where: { postId },
+      attributes: { exclude: ["userId", "postId"] },
+      include: {
+        model: User,
+        as: "commentAuthor",
+        attributes: ["firstName", "lastName", "username"],
+      },
+    });
+    res.status(200).json({ comments });
+  } catch (error) {
+    log.error(error);
+    res.sendStatus(500);
+  }
+};
 
 export const deleteComment = async (req, res) => {};
