@@ -76,7 +76,7 @@ export const getAllPosts = async (req, res) => {
     if (!posts || posts.length === 0) {
       return errorMsgSender(res, 404, "no posts found");
     }
-    res.status(200).json(posts);
+    res.status(200).json({ posts });
   } catch (error) {
     log.error(error);
     res.sendStatus(500);
