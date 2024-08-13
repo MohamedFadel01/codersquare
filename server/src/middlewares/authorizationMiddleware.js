@@ -26,3 +26,5 @@ export const postAuth = async (req, res, next) => {
 
   next();
 };
+
+export const commentAuth = async (req, res) => {};
