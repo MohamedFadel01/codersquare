@@ -43,7 +43,7 @@ export const getPost = async (req, res) => {
 
   try {
     const post = await Post.findByPk(id, {
-      attributes: { exclude: ["id", "userId"] },
+      attributes: { exclude: ["userId"] },
       include: {
         model: User,
         as: "postAuthor",
