@@ -27,4 +27,23 @@ export const postAuth = async (req, res, next) => {
   next();
 };
 
-export const commentAuth = async (req, res) => {};
+export const commentAuth = async (req, res) => {
+  const { id } = req.params;
+  if (!validator.isUUID(id)) {
+    return errorMsgSender(res, 400, "invalid comment id");
+  }
+
+  const { userId } = res.locals;
+
+  try {
+    const comment = await Comment.findOne({ where: { id, userId } });
+    if (!comment) {
+      return errorMsgSender(res, 401, "user not authorized");
+    }
+  } catch (error) {
+    log.error(error);
+    res.sendStatus(500);
+  }
+
+  next();
+};
