@@ -27,10 +27,11 @@ A JWT-based auth mechanism is to be used, with passwords encrypted and stored in
 **Posts**:
 
 ```
-/posts/list [GET]
-/posts/new  [POST]
+/posts [GET]
+/posts [POST]
 /posts/:id  [GET]
 /posts/:id  [DELETE]
+/posts/:id  [PUT]
 ```
 
 **Likes**:
@@ -42,15 +43,15 @@ A JWT-based auth mechanism is to be used, with passwords encrypted and stored in
 **Comments**:
 
 ```
-/comments/new  [POST]
-/comments/list [GET]
+/comments [POST]
+/comments [GET]
 /comments/:id  [DELETE]
 ```
 
 ## Storage
 
 ### Database
-A relational database (schema follows) to fast retrieval of posts and comments. A minimal database implementation such as sqlite3 suffices.
+A relational database (schema follows) to fast retrieval of posts and comments.
 
 ### Schema
 **Users**:
