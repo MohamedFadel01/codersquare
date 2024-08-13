@@ -37,7 +37,9 @@ A JWT-based auth mechanism is to be used, with passwords encrypted and stored in
 **Likes**:
 
 ```
-/likes/new [POST]
+/likes/ [POST]
+/likes/:postId [GET]
+/likes/:postId [DELETE]
 ```
 
 **Comments**:

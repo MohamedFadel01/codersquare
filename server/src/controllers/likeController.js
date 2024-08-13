@@ -48,4 +48,19 @@ export const getPostLikes = async (req, res) => {
   }
 };
 
-export const deleteLike = async (req, res) => {};
+export const deleteLike = async (req, res) => {
+  const { postId } = req.params;
+  const { userId } = res.locals;
+
+  if (!validator.isUUID(postId)) {
+    return errorMsgSender(res, 400, "invalid postId");
+  }
+
+  try {
+    await Like.destroy({ where: { userId, postId } });
+    res.sendStatus(204);
+  } catch (error) {
+    log.error(error);
+    res.sendStatus(500);
+  }
+};
