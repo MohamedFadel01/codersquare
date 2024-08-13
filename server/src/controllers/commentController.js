@@ -1,6 +1,5 @@
 import Comment from "../models/commentModel.js";
 import User from "../models/userModel.js";
-import Post from "../models/postModel.js";
 import errorMsgSender from "../utils/errorMsgSender.js";
 import validator from "validator";
 import log from "fancy-log";

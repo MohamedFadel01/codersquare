@@ -7,10 +7,12 @@ Like.init(
     userId: {
       type: DataTypes.UUID,
       allowNull: false,
+      primaryKey: true,
     },
     postId: {
       type: DataTypes.UUID,
       allowNull: false,
+      primaryKey: true,
     },
   },
   {
